@@ -1,3 +1,7 @@
 spring:
   application:
-    name: hand-equity-service
+    name: ${SERVICE:hand-equity-service}
+server:
+  port: ${PORT:9234}
+  error:
+    include-message: always
