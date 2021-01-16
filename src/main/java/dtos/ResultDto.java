@@ -78,6 +78,8 @@ public class ResultDto {
     		dto.setTie(results[i][1], i+1);
     	}
     	
+    	dto.setNumGames(results[0][2]);
+    	
     	return dto;
     }
        
