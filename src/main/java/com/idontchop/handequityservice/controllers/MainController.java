@@ -19,6 +19,9 @@ public class MainController {
 	@Value("${spring.application.name}")
 	private String appName;
 	
+	@Value("${spring.profiles.active}")
+	private String activeProfile;
+	
 	@RequestMapping(value = "/helloWorld", method = { RequestMethod.GET, RequestMethod.POST} )
 	public RestMessage helloWorld () {
 		String serverAddress,serverHost;
@@ -39,6 +42,7 @@ public class MainController {
 				.add("service", appName)
 				.add("host", serverHost)
 				.add("address", serverAddress)
+				.add("Profile", activeProfile)
 				.add("port", serverPort);			
 	}
 	
