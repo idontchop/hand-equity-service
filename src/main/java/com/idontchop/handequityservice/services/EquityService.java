@@ -21,10 +21,10 @@ public class EquityService implements EquityCalcObserver {
 		if (dead == null) dead = "";
 		
 		Pocket[][] pockets = new Pocket[hands.size()][];
-		
+				
 		// convert list of hands to pocket array for equityCalc
 		for (int i = 0; i < hands.size(); i++) {
-			pockets[i] = HoldemStrings.pocketsToArray(hands.get(i));
+			pockets[i] = HoldemStrings.pocketsToArray(hands.get(i));			
 		}
 		
 		// do calc
@@ -32,7 +32,7 @@ public class EquityService implements EquityCalcObserver {
 				pockets, HoldemStrings.cardsToArray(board), HoldemStrings.cardsToArray(dead));
 		
 		// build ResultDto
-		ResultDto resultDto = ResultDto.fromCalc(results);
+		ResultDto resultDto = ResultDto.fromCalc(results).addHands(hands);
 		
 		return resultDto;
 	}

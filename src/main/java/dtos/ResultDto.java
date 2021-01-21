@@ -1,6 +1,9 @@
 
 package dtos;
 import java.time.LocalDateTime;
+import java.util.List;
+
+import pokerTools.HoldemStrings;
 
 
 
@@ -81,6 +84,39 @@ public class ResultDto {
     	dto.setNumGames(results[0][2]);
     	
     	return dto;
+    }
+    
+    public ResultDto addHands(List<String> hands) {
+    	
+		// convert list of hands to pocket array for equityCalc
+		for (int i = 0; i < hands.size(); i++) {
+			switch(i) {
+			case 0: hand1 = hands.get(i); break;
+			case 1: hand2 = hands.get(i); break;
+			case 2: hand3 = hands.get(i); break;
+			case 3: hand4 = hands.get(i); break;
+			case 4: hand5 = hands.get(i); break;
+			case 5: hand6 = hands.get(i); break;
+			case 6: hand7  = hands.get(i); break;
+			case 7: hand8 = hands.get(i); break;
+			case 8: hand9 = hands.get(i); break;
+			case 9: hand10 = hands.get(i); break;
+			}
+		}
+		
+		return this;
+    }
+    
+    public ResultDto addCalc(long[][] results) {
+    	
+    	for ( int i = 0; i < results.length; i++) {
+    		setWin(results[i][0], i+1);
+    		setTie(results[i][1], i+1);
+    	}
+    	
+    	setNumGames(results[0][2]);
+    	
+    	return this;
     }
        
     public void setHands(String ...hands) {
