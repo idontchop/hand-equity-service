@@ -36,7 +36,7 @@ public class EquityService implements EquityCalcObserver {
 
 		//build dto
 		return ResultDto.fromCalc(results)
-				.addHands(hands)
+				.addHands(hands, board, dead)
 				.addMillis(endTime-startTime)
 				.createResultText();
 		

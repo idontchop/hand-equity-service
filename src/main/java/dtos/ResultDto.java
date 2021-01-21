@@ -93,7 +93,7 @@ public class ResultDto {
     	return dto;
     }
     
-    public ResultDto addHands(List<String> hands) {
+    public ResultDto addHands(List<String> hands, String board, String dead) {
     	
 		// convert list of hands to pocket array for equityCalc
 		for (int i = 0; i < hands.size(); i++) {
@@ -110,6 +110,9 @@ public class ResultDto {
 			case 9: hand10 = hands.get(i); break;
 			}
 		}
+		
+		this.board = board;
+		this.dead = dead;
 		
 		return this;
     }
@@ -142,30 +145,34 @@ public class ResultDto {
     	
     	String output = new String();
     	
-    	output += "                                    Wins                            Ties                       Total Equity\n";
-    	output += String.format("Hero:      ");
-    	output += String.format("%,15d (%.f%%)", wins1, ((double) wins1 / (double) numGames)*100);
-    	output += String.format("%,15d (%.f%%)", ties1, ((double) ties1 / (double) numGames)*100);
-    	output += String.format("%,15d (%.2f%%)", (((double)wins1 + (double)+ties1) / (double) numGames)*100);
-    	output += String.format("\n%s",hand1);
+    	if (hand1 != null) {
+	    	output += "                                    Wins                            Ties                       Total Equity\n";
+	    	output += String.format("Hero:      ");
+	    	output += String.format("%,15d (%.2f%%)", wins1, ((double) wins1 / (double) numGames)*100);
+	    	output += String.format("%,15d (%.2f%%)", ties1, ((double) ties1 / (double) numGames)*100);
+	    	output += String.format("%,15d (%.22f%%)", ties1+wins1, (((double)wins1 + (double)+ties1) / (double) numGames)*100);
+	    	output += String.format("\n%s",hand1);
+    	}
 
-    	if (!hand2.isBlank()) {
+    	if (hand2 != null && !hand2.isBlank()) {
 	    	output += String.format("Villian 1:      ");
-	    	output += String.format("%,15d (%.f%%)", wins2, ((double) wins2 / (double) numGames)*100);
-	    	output += String.format("%,15d (%.f%%)", ties2, ((double) ties2 / (double) numGames)*100);
-	    	output += String.format("%,15d (%.2f%%)", (((double)wins2 + (double)+ties2) / (double) numGames)*100);
+	    	output += String.format("%,15d (%.2f%%)", wins2, ((double) wins2 / (double) numGames)*100);
+	    	output += String.format("%,15d (%.2f%%)", ties2, ((double) ties2 / (double) numGames)*100);
+	    	output += String.format("%,15d (%.22f%%)", ties1+wins1, (((double)wins2 + (double)+ties2) / (double) numGames)*100);
 	    	output += String.format("\n%s",hand2);
     	}
-    	if (!hand3.isBlank()) {
+    	if (hand3 != null && !hand3.isBlank()) {
 	    	output += String.format("Villian 2:      ");
-	    	output += String.format("%,15d (%.f%%)", wins3, ((double) wins3 / (double) numGames)*100);
-	    	output += String.format("%,15d (%.f%%)", ties3, ((double) ties3 / (double) numGames)*100);
-	    	output += String.format("%,15d (%.2f%%)", (((double)wins3 + (double)+ties3) / (double) numGames)*100);
+	    	output += String.format("%,15d (%.2f%%)", wins3, ((double) wins3 / (double) numGames)*100);
+	    	output += String.format("%,15d (%.2f%%)", ties3, ((double) ties3 / (double) numGames)*100);
+	    	output += String.format("%,15d (%.2f%%)", ties1+wins1, (((double)wins3 + (double)+ties3) / (double) numGames)*100);
 	    	output += String.format("\n%s",hand3);
 		}            	
     	
     	output += String.format("\nNum Games: %,15d\n", numGames);
-    	output += String.format("Elapsed Time %,15dms Hands/s: %d", elapsedMillis, (numGames/elapsedMillis)*1000);
+    	if (elapsedMillis != 0 && numGames != 0)
+    		output += String.format("Elapsed Time %,15dms Hands/s: %d", elapsedMillis, (numGames/elapsedMillis)*1000);
+    	setResultText(output);
     	return this;
     }
     public String getBoard() {
