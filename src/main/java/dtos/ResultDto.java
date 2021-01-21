@@ -11,6 +11,13 @@ import pokerTools.HoldemStrings;
  * Bean to store results of a hand equity.
  * Easily output to Json for sharing on idontchop cloud.
  * Fields will map to mysql database though this package only deals in JSON
+ * 
+ * TODO: (1/20/21) Need to refactor this... using arrays instead of individual variables, why did
+ * I do that? Since it would have to be changed in two microservices and the javafx app... probably
+ * going to stay "TODO" forever
+ * 
+ * one option: Set arrays for hands, wins, ties and create getters/setters for legacy style
+ * 
  * @author sacred
  */
 public class ResultDto {
@@ -125,7 +132,42 @@ public class ResultDto {
         }
     }
 
+    /**
+     * Creates result text for 3 hands. Likely the front end will create its own result text.
+     * 
+     * @return
+     */
+    public ResultDto createResultText() {
+    	// ugh
+    	
+    	String output = new String();
+    	
+    	output += "                                    Wins                            Ties                       Total Equity\n";
+    	output += String.format("Hero:      ");
+    	output += String.format("%,15d (%.f%%)", wins1, ((double) wins1 / (double) numGames)*100);
+    	output += String.format("%,15d (%.f%%)", ties1, ((double) ties1 / (double) numGames)*100);
+    	output += String.format("%,15d (%.2f%%)", (((double)wins1 + (double)+ties1) / (double) numGames)*100);
+    	output += String.format("\n%s",hand1);
 
+    	if (!hand2.isBlank()) {
+	    	output += String.format("Villian 1:      ");
+	    	output += String.format("%,15d (%.f%%)", wins2, ((double) wins2 / (double) numGames)*100);
+	    	output += String.format("%,15d (%.f%%)", ties2, ((double) ties2 / (double) numGames)*100);
+	    	output += String.format("%,15d (%.2f%%)", (((double)wins2 + (double)+ties2) / (double) numGames)*100);
+	    	output += String.format("\n%s",hand2);
+    	}
+    	if (!hand3.isBlank()) {
+	    	output += String.format("Villian 2:      ");
+	    	output += String.format("%,15d (%.f%%)", wins3, ((double) wins3 / (double) numGames)*100);
+	    	output += String.format("%,15d (%.f%%)", ties3, ((double) ties3 / (double) numGames)*100);
+	    	output += String.format("%,15d (%.2f%%)", (((double)wins3 + (double)+ties3) / (double) numGames)*100);
+	    	output += String.format("\n%s",hand3);
+		}            	
+    	
+    	output += String.format("\nNum Games: %,15d\n", numGames);
+    	output += String.format("Elapsed Time %,15dms Hands/s: %d", elapsedMillis, (numGames/elapsedMillis)*1000);
+    	return this;
+    }
     public String getBoard() {
 		return board;
 	}
@@ -751,4 +793,8 @@ public class ResultDto {
         this.ties10 = ties10;
     }
     
+    public ResultDto addMillis(long millis) {
+    	elapsedMillis = millis;
+    	return this;
+    }
 }

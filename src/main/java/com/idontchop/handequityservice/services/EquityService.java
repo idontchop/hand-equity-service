@@ -27,16 +27,21 @@ public class EquityService implements EquityCalcObserver {
 			pockets[i] = HoldemStrings.pocketsToArray(hands.get(i));			
 		}
 		
+		long startTime = System.currentTimeMillis();
 		// do calc
 		long[][] results = equityCalc.calcEnum(
 				pockets, HoldemStrings.cardsToArray(board), HoldemStrings.cardsToArray(dead));
 		
-		// build ResultDto
-		ResultDto resultDto = ResultDto.fromCalc(results).addHands(hands);
-		
-		return resultDto;
-	}
+		long endTime = System.currentTimeMillis();
 
+		//build dto
+		return ResultDto.fromCalc(results)
+				.addHands(hands)
+				.addMillis(endTime-startTime)
+				.createResultText();
+		
+	}
+	
 	@Override
 	public boolean checkStop() {
 		// TODO Auto-generated method stub
