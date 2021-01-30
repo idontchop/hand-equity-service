@@ -146,11 +146,12 @@ public class ResultDto {
     	String output = new String();
     	
     	if (hand1 != null) {
-	    	output += "                                    Wins                            Ties                       Total Equity\n";
+	    	output += "                                    Wins                            Ties                       Total Equity";
+	    	output += "\n";
 	    	output += String.format("Hero:      ");
 	    	output += String.format("%,15d (%.2f%%)", wins1, ((double) wins1 / (double) numGames)*100);
 	    	output += String.format("%,15d (%.2f%%)", ties1, ((double) ties1 / (double) numGames)*100);
-	    	output += String.format("%,15d (%.22f%%)", ties1+wins1, (((double)wins1 + (double)+ties1) / (double) numGames)*100);
+	    	output += String.format("%,15d (%.2f%%)", ties1+wins1, (((double)wins1 + (double)+ties1) / (double) numGames)*100);
 	    	output += String.format("\n%s",hand1);
     	}
 
@@ -158,7 +159,7 @@ public class ResultDto {
 	    	output += String.format("Villian 1:      ");
 	    	output += String.format("%,15d (%.2f%%)", wins2, ((double) wins2 / (double) numGames)*100);
 	    	output += String.format("%,15d (%.2f%%)", ties2, ((double) ties2 / (double) numGames)*100);
-	    	output += String.format("%,15d (%.22f%%)", ties1+wins1, (((double)wins2 + (double)+ties2) / (double) numGames)*100);
+	    	output += String.format("%,15d (%.2f%%)", ties1+wins1, (((double)wins2 + (double)+ties2) / (double) numGames)*100);
 	    	output += String.format("\n%s",hand2);
     	}
     	if (hand3 != null && !hand3.isBlank()) {
