@@ -156,14 +156,14 @@ public class ResultDto {
     	}
 
     	if (hand2 != null && !hand2.isBlank()) {
-	    	output += String.format("Villian 1:      ");
+	    	output += String.format("\nVillian 1:      ");
 	    	output += String.format("%,15d (%.2f%%)", wins2, ((double) wins2 / (double) numGames)*100);
 	    	output += String.format("%,15d (%.2f%%)", ties2, ((double) ties2 / (double) numGames)*100);
 	    	output += String.format("%,15d (%.2f%%)", ties1+wins1, (((double)wins2 + (double)+ties2) / (double) numGames)*100);
 	    	output += String.format("\n%s",hand2);
     	}
     	if (hand3 != null && !hand3.isBlank()) {
-	    	output += String.format("Villian 2:      ");
+	    	output += String.format("\nVillian 2:      ");
 	    	output += String.format("%,15d (%.2f%%)", wins3, ((double) wins3 / (double) numGames)*100);
 	    	output += String.format("%,15d (%.2f%%)", ties3, ((double) ties3 / (double) numGames)*100);
 	    	output += String.format("%,15d (%.2f%%)", ties1+wins1, (((double)wins3 + (double)+ties3) / (double) numGames)*100);
