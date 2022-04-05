@@ -29,6 +29,8 @@ public class EquityController {
 		
 		if ( dto.getHands().size() < 2) {
 			throw new ResponseStatusException( HttpStatus.BAD_REQUEST, "Hands less than size 2");
+		} else if ( dto.getHands().size() > 3) {
+			throw new ResponseStatusException( HttpStatus.BAD_REQUEST, "Hands more than 3");
 		} else if ( dto.getHands().size() > 2 && (dto.getBoard() == null ||  dto.getBoard().length() < 6) ) {
 			throw new ResponseStatusException( HttpStatus.BAD_REQUEST, "Must have full flop for hands > 2");
 		} else if ( dto.getBoard().length() > 0 && (dto.getBoard().length() < 6 || dto.getBoard().length() > 10)) {
