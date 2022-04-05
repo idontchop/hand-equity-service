@@ -31,7 +31,9 @@ public class EquityController {
 			throw new ResponseStatusException( HttpStatus.BAD_REQUEST, "Hands less than size 2");
 		} else if ( dto.getHands().size() > 2 && (dto.getBoard() == null ||  dto.getBoard().length() < 6) ) {
 			throw new ResponseStatusException( HttpStatus.BAD_REQUEST, "Must have full flop for hands > 2");
-		} 
+		} else if ( dto.getBoard().length() > 0 && (dto.getBoard().length() < 6 || dto.getBoard().length() > 10)) {
+			throw new ResponseStatusException( HttpStatus.BAD_REQUEST, "Must have 3 or 4 board cards.");
+		}
 		
 		return equityService.doEquityCalc(dto.getHands(), dto.getBoard(), dto.getDead());
 	}
