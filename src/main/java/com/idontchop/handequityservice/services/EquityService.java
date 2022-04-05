@@ -13,9 +13,9 @@ import pokerTools.Pocket;
 @Service
 public class EquityService implements EquityCalcObserver {
 	
-	private EquityCalc equityCalc = new EquityCalc(this);
-	
 	public ResultDto doEquityCalc(List<String> hands, String board, String dead) {
+		
+		EquityCalc equityCalc = new EquityCalc(this);
 		
 		if (board == null) board = "";
 		if (dead == null) dead = "";
